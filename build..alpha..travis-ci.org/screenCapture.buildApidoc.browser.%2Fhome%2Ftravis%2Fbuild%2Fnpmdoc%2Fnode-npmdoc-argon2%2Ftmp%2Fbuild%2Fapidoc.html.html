@@ -1,0 +1,251 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/ranisalt/node-argon2#readme">argon2 (v0.15.0)</a>
+</h1>
+<h4>An Argon2 library for Node</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.argon2">module argon2</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.argon2.generateSalt">
+            function <span class="apidocSignatureSpan">argon2.</span>generateSalt
+            <span class="apidocSignatureSpan">(length)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.argon2.hash">
+            function <span class="apidocSignatureSpan">argon2.</span>hash
+            <span class="apidocSignatureSpan">(plain, salt, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.argon2.verify">
+            function <span class="apidocSignatureSpan">argon2.</span>verify
+            <span class="apidocSignatureSpan">(hash, plain)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">argon2.</span>argon2d</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">argon2.</span>argon2i</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">argon2.</span>argon2id</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">argon2.</span>defaults</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">argon2.</span>limits</span>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.argon2" id="apidoc.module.argon2">module argon2</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.argon2.generateSalt" id="apidoc.element.argon2.generateSalt">
+        function <span class="apidocSignatureSpan">argon2.</span>generateSalt
+        <span class="apidocSignatureSpan">(length)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">generateSalt(length) {
+  return new Promise((resolve, reject) =&gt; {
+    crypto.randomBytes(length || 16, (err, salt) =&gt; {
+<span class="apidocCodeCommentSpan">      /* istanbul ignore if */
+</span>      if (err) {
+        reject(err)
+      }
+      resolve(salt)
+    })
+  })
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+}
+```
+
+You can provide your own salt as the second parameter. It is **highly**
+recommended to use the salt generating methods instead of a hardcoded, constant
+salt:
+```js
+argon2.<span class="apidocCodeKeywordSpan">generateSalt</span>().then(salt =&gt; {
+  // ...
+});
+
+// ES7 or TypeScript
+
+const salt = await argon2.generateSalt();
+```
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.argon2.hash" id="apidoc.element.argon2.hash">
+        function <span class="apidocSignatureSpan">argon2.</span>hash
+        <span class="apidocSignatureSpan">(plain, salt, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">hash(plain, salt, options) {
+  salt = new Buffer(salt)
+  options = Object.assign({}, defaults, options)
+
+  return validate(salt, options).then(() =&gt; new Promise((resolve, reject) =&gt; {
+    bindings.hash(new Buffer(plain), salt, options, resolve, reject)
+  }))
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+cryptographically-safe salts. Salts **must** be at least 8-byte long buffers.
+
+To hash a password:
+```js
+const argon2 = require('argon2');
+const salt = new Buffer('somesalt');
+
+argon2.<span class="apidocCodeKeywordSpan">hash</span>('password', salt).then(hash =&gt; {
+  // ...
+}).catch(err =&gt; {
+  // ...
+});
+
+// ES7 or TypeScript
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.argon2.verify" id="apidoc.element.argon2.verify">
+        function <span class="apidocSignatureSpan">argon2.</span>verify
+        <span class="apidocSignatureSpan">(hash, plain)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">verify(hash, plain) {
+  if (!/^\$argon2(i|d|id)(\$v=\d+)?\$m=\d+,t=\d+,p=\d+(?:\$[\w+/]+){2}$/.test(hash)) {
+    return Promise.reject(new Error('Invalid hash, must be in MCF, generated by Argon2.'))
+  }
+
+  return new Promise((resolve, reject) =&gt; {
+    bindings.verify(new Buffer(hash), new Buffer(plain), resolve, reject)
+  })
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+```js
+console.log(argon2.defaults);
+// =&gt; { timeCost: 3, memoryCost: 12, parallelism: 1, type: argon2.argon2i }
+```
+
+To verify a password:
+```js
+argon2.<span class="apidocCodeKeywordSpan">verify</span>('&lt;big long hash&gt;', 'password').then(match
+ =&gt; {
+if (match) {
+  // password match
+} else {
+  // password did not match
+}
+}).catch(err =&gt; {
+// internal failure
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
