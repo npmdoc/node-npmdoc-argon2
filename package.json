@@ -1,7 +1,7 @@
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
     "buildNpmdoc": "argon2",
-    "description": "api documentation for [argon2 (v0.15.0)](https://github.com/ranisalt/node-argon2#readme) [![npm package](https://img.shields.io/npm/v/npmdoc-argon2.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-argon2) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-argon2.svg)](https://travis-ci.org/npmdoc/node-npmdoc-argon2)",
+    "description": "#### basic api documentation for  [argon2 (v0.15.0)](https://github.com/ranisalt/node-argon2#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-argon2.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-argon2) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-argon2.svg)](https://travis-ci.org/npmdoc/node-npmdoc-argon2)",
     "devDependencies": {
         "argon2": "*",
         "electron-lite": "kaizhu256/node-electron-lite#alpha",

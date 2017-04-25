@@ -1,9 +1,14 @@
-# api documentation for  [argon2 (v0.15.0)](https://github.com/ranisalt/node-argon2#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-argon2.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-argon2) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-argon2.svg)](https://travis-ci.org/npmdoc/node-npmdoc-argon2)
+# npmdoc-argon2
+
+#### basic api documentation for  [argon2 (v0.15.0)](https://github.com/ranisalt/node-argon2#readme)  [![npm package](https://img.shields.io/npm/v/npmdoc-argon2.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-argon2) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-argon2.svg)](https://travis-ci.org/npmdoc/node-npmdoc-argon2)
+
 #### An Argon2 library for Node
 
-[![NPM](https://nodei.co/npm/argon2.png?downloads=true)](https://www.npmjs.com/package/argon2)
+[![NPM](https://nodei.co/npm/argon2.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/argon2)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-argon2/build/screenCapture.buildNpmdoc.browser.%252Fhome%252Ftravis%252Fbuild%252Fnpmdoc%252Fnode-npmdoc-argon2%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-argon2/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-argon2/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-argon2/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-argon2/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-argon2/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-argon2/build/screenCapture.npmPackageListing.svg)
 
@@ -17,8 +22,7 @@
 
 {
     "author": {
-        "name": "Ranieri Althoff",
-        "email": "ranisalt+argon2@gmail.com"
+        "name": "Ranieri Althoff"
     },
     "ava": {
         "files": [
@@ -73,13 +77,11 @@
     "main": "index.js",
     "maintainers": [
         {
-            "name": "ranisalt",
-            "email": "ranisalt@gmail.com"
+            "name": "ranisalt"
         }
     ],
     "name": "argon2",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/ranisalt/node-argon2.git"
@@ -100,128 +102,9 @@
         },
         "semicolon": false,
         "space": 2
-    }
+    },
+    "bin": {}
 }
-```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module argon2](#apidoc.module.argon2)
-1.  [function <span class="apidocSignatureSpan">argon2.</span>generateSalt (length)](#apidoc.element.argon2.generateSalt)
-1.  [function <span class="apidocSignatureSpan">argon2.</span>hash (plain, salt, options)](#apidoc.element.argon2.hash)
-1.  [function <span class="apidocSignatureSpan">argon2.</span>verify (hash, plain)](#apidoc.element.argon2.verify)
-1.  number <span class="apidocSignatureSpan">argon2.</span>argon2d
-1.  number <span class="apidocSignatureSpan">argon2.</span>argon2i
-1.  number <span class="apidocSignatureSpan">argon2.</span>argon2id
-1.  object <span class="apidocSignatureSpan">argon2.</span>defaults
-1.  object <span class="apidocSignatureSpan">argon2.</span>limits
-
-
-
-# <a name="apidoc.module.argon2"></a>[module argon2](#apidoc.module.argon2)
-
-#### <a name="apidoc.element.argon2.generateSalt"></a>[function <span class="apidocSignatureSpan">argon2.</span>generateSalt (length)](#apidoc.element.argon2.generateSalt)
-- description and source-code
-```javascript
-generateSalt(length) {
-  return new Promise((resolve, reject) => {
-    crypto.randomBytes(length || 16, (err, salt) => {
-<span class="apidocCodeCommentSpan">      /* istanbul ignore if */
-</span>      if (err) {
-        reject(err)
-      }
-      resolve(salt)
-    })
-  })
-}
-```
-- example usage
-```shell
-...
-}
-'''
-
-You can provide your own salt as the second parameter. It is **highly**
-recommended to use the salt generating methods instead of a hardcoded, constant
-salt:
-'''js
-argon2.generateSalt().then(salt => {
-  // ...
-});
-
-// ES7 or TypeScript
-
-const salt = await argon2.generateSalt();
-'''
-...
-```
-
-#### <a name="apidoc.element.argon2.hash"></a>[function <span class="apidocSignatureSpan">argon2.</span>hash (plain, salt, options)](#apidoc.element.argon2.hash)
-- description and source-code
-```javascript
-hash(plain, salt, options) {
-  salt = new Buffer(salt)
-  options = Object.assign({}, defaults, options)
-
-  return validate(salt, options).then(() => new Promise((resolve, reject) => {
-    bindings.hash(new Buffer(plain), salt, options, resolve, reject)
-  }))
-}
-```
-- example usage
-```shell
-...
-cryptographically-safe salts. Salts **must** be at least 8-byte long buffers.
-
-To hash a password:
-'''js
-const argon2 = require('argon2');
-const salt = new Buffer('somesalt');
-
-argon2.hash('password', salt).then(hash => {
-  // ...
-}).catch(err => {
-  // ...
-});
-
-// ES7 or TypeScript
-...
-```
-
-#### <a name="apidoc.element.argon2.verify"></a>[function <span class="apidocSignatureSpan">argon2.</span>verify (hash, plain)](#apidoc.element.argon2.verify)
-- description and source-code
-```javascript
-verify(hash, plain) {
-  if (!/^\$argon2(i|d|id)(\$v=\d+)?\$m=\d+,t=\d+,p=\d+(?:\$[\w+/]+){2}$/.test(hash)) {
-    return Promise.reject(new Error('Invalid hash, must be in MCF, generated by Argon2.'))
-  }
-
-  return new Promise((resolve, reject) => {
-    bindings.verify(new Buffer(hash), new Buffer(plain), resolve, reject)
-  })
-}
-```
-- example usage
-```shell
-...
-'''js
-console.log(argon2.defaults);
-// => { timeCost: 3, memoryCost: 12, parallelism: 1, type: argon2.argon2i }
-'''
-
-To verify a password:
-'''js
-argon2.verify('<big long hash>', 'password').then(match => {
-if (match) {
-  // password match
-} else {
-  // password did not match
-}
-}).catch(err => {
-// internal failure
-...
 ```
 
 
